@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Imprima", "Calibri", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-container {
+  width: 95dvw;
+  overflow-x: scroll;
+  overflow-y: visible;
+  display: flex;
+  align-items: center;
+  margin: 0 40px;
+}
+
+table.content-table {
+  display: block;
+  white-space: nowrap;
+  padding-bottom: 20px;
+}
+table.content-table tr, table.content-table td, table.content-table th {
+  border: 1px solid #eaeaea;
+}
+table.content-table th, table.content-table td {
+  padding: 4px 8px;
+  text-align: left;
+}
+table.content-table th {
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-family: "Imprima", "Calibri", sans-serif;
+}
+table.content-table td {
+  font-family: "Consolas", monospace;
+  font-weight: 500;
+  font-size: 14px;
+}
+table.content-table .no-class {
+  background-color: #f0f0f0;
+}
+table.content-table .api-class {
+  background-color: #fff2cd;
+}
+table.content-table .gui-class {
+  background-color: #d3ffcd;
+}
+table.content-table .flag-class {
+  background-color: #cde9ff;
+}
+table.content-table .db-class {
+  background-color: #fbcdff;
+}
+table.content-table #sticky-column {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background-color: #fafafa;
+  font-weight: bold;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 24px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1019607843);
+}
+.nav-container .title {
+  font-size: 32px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.search_container {
+  padding: 12px;
+}
+.search_container #search {
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: 400px;
+  font-family: "Consolas", sans-serif;
+}
+.search_container .search_button, .search_container .clear_button {
+  background-color: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 100px;
+  border: 1px solid #e9e9e9;
+  background-color: #e9e9e9;
+  color: #000;
+  font-family: inherit;
+  font-weight: 600;
+}
+.search_container .search_button:hover, .search_container .clear_button:hover {
+  background-color: #f0f0f0;
+}
+
+.button-container {
+  display: none;
+}
+.button-container button {
+  background-color: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 100px;
+  border: 1px solid #e9e9e9;
+  background-color: #e9e9e9;
+  color: #000;
+  font-family: inherit;
+  font-weight: 600;
+}
+.button-container button:hover {
+  background-color: #f0f0f0;
+}/*# sourceMappingURL=main.css.map */
