@@ -16,8 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (rowText.includes(query)) {
                 row.style.display = ""; // Show the row
-            } else {
-                row.style.display = "none"; // Hide the row
+                row.style.backgroundColor = "#fffeaa"; // Highlight the row
+            } 
+            else {
+                row.style.backgroundColor = ""; // Hide the row
             }
         });
     });
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.value = "";
         rows.forEach((row) => {
             row.style.display = "";
+            row.style.backgroundColor = "";
         });
     });
 });
+

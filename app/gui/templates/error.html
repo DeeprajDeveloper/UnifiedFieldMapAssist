@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<section class="error_container">
+    <div class="error_header">
+        <div class="error_code">{{ error_short_desc }}</div>
+    </div>
+    <div class="error_content">
+        <p>{{ error_message }}</p>
+        <p>We recommend trying again later. If the problem persists, feel free to report it to our support team at 'service.email@gmail.com'.</p>
+        <div class="button_container">
+            <a href="{{ url_for('bp_gui.home') }}" class="back_button">Go back to the homepage</a>
+            <a href="mailto:deepraj.developer@gmail.com" class="report back_button">Report the issue</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

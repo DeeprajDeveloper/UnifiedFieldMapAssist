@@ -22,3 +22,17 @@ def index():
     return_data_extract = api_func.return_all_mapping_information(return_json_response=False)
     cust_log.log_message(level='info', message='Calling endpoint /gui', call_type='GUI')
     return render_template('index.html', display_data_extract=return_data_extract)
+
+
+@bp_gui.route('/release', methods=['GET'])
+def release():
+    cust_log.log_message(level='info', message='Calling endpoint /gui/release', call_type='GUI')
+    return render_template('release.html')
+
+
+@bp_gui.errorhandler(HTTPException)
+def display_error_page_404(error):
+    error_short_description = "Something went wrong"
+    error_message = error.description
+    return render_template('error.html', error_short_desc=error_short_description, error_message=error_message), 404
+
