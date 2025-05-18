@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Imprima", "Calibri", sans-serif;
+  font-family: "Calibri", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,63 +14,108 @@ body {
 }
 
 .content-container {
-  width: 95dvw;
+  width: 90dvw;
   overflow-x: scroll;
   overflow-y: visible;
   display: flex;
-  align-items: center;
-  margin: 0 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 80dvh;
 }
 
-table.content-table {
+.content-table {
   display: block;
   white-space: nowrap;
   padding-bottom: 20px;
+  border-collapse: collapse;
 }
-table.content-table tr, table.content-table td, table.content-table th {
-  border: 1px solid #eaeaea;
+.content-table tr {
+  border-bottom: 1px solid #e0e0e0;
 }
-table.content-table th, table.content-table td {
+.content-table tr:nth-child(odd) {
+  background-color: #f0f0f0;
+}
+.content-table tr:nth-child(even) {
+  background-color: #fff;
+}
+.content-table th, .content-table td {
   padding: 4px 8px;
   text-align: left;
 }
-table.content-table th {
+.content-table th {
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 1;
-  font-family: "Imprima", "Calibri", sans-serif;
+  font-family: "Calibri", sans-serif;
 }
-table.content-table td {
+.content-table td {
   font-family: "Consolas", monospace;
   font-weight: 500;
   font-size: 14px;
-  background-color: #fff;
 }
-table.content-table .no-class {
+.content-table .no-class {
   background-color: #f0f0f0;
 }
-table.content-table .api-class {
+.content-table .api-class {
   background-color: #fff2cd;
 }
-table.content-table .gui-class {
+.content-table .gui-class {
   background-color: #d3ffcd;
 }
-table.content-table .flag-class {
+.content-table .flag-class {
   background-color: #cde9ff;
 }
-table.content-table .db-class {
+.content-table .db-class {
   background-color: #fbcdff;
 }
-table.content-table #sticky-column {
+.content-table .db-class .no-class {
+  background-color: #fff;
+}
+.content-table .db-class #db-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.content-table #sticky-column {
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
+  font-weight: bold;
+}
+.content-table #sticky-column-admin {
   position: sticky;
   left: 0;
   z-index: 2;
-  background-color: #fafafa;
+  background-color: #fff;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.content-table button {
+  background-color: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #f0f0f0;
+  background-color: #fff;
+  color: #000;
+  font-family: inherit;
+}
+.content-table button:hover {
+  background-color: #fff2cd;
 }
 
-.nav-container {
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -83,29 +128,45 @@ table.content-table #sticky-column {
   background-color: #fafafa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1019607843);
 }
-.nav-container .title {
+.navbar-container .navbar-title {
   font-size: 24px;
   font-weight: 500;
   text-decoration: none;
   color: inherit;
 }
-.nav-container .nav-buttons {
+.navbar-container .navbar-button-container {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  gap: 4px;
   justify-content: center;
   align-items: flex-end;
 }
-.nav-container .nav-buttons .release-button {
-  color: #4800bd;
-  font-weight: 600;
+.navbar-container .navbar-button-container .button {
+  text-decoration: none;
+  background-color: #009669;
+  color: #fff;
+  padding: 4px 8px;
 }
-.nav-container .nav-buttons .release-button:hover {
-  color: #7d0096;
+.navbar-container .navbar-button-container .button:hover {
+  background-color: #008a60;
+  color: #fff;
+}
+.navbar-container .navbar-button-container .admin {
+  text-decoration: none;
+  background-color: #bd0000;
+  color: #fff;
+  padding: 4px 8px;
+}
+.navbar-container .navbar-button-container .admin:hover {
+  background-color: #9e0000;
+  color: #fff;
+}
+.navbar-container .navbar-button-container .role-info {
+  padding: 4px 8px;
 }
 
 .search_container {
-  padding: 12px;
+  padding: 12px 0;
 }
 .search_container #search {
   background-color: #ffffff;
@@ -134,23 +195,45 @@ table.content-table #sticky-column {
 }
 
 .button-container {
-  display: none;
+  margin: 12px 0 40px 0;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
-.button-container button {
+.button-container .button-group {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.button-container .title {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.button-container .button {
+  text-decoration: none;
   background-color: none;
   border: none;
   padding: 8px 12px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   min-width: 100px;
-  border: 1px solid #e9e9e9;
-  background-color: #e9e9e9;
+  border: 1px solid #f0f0f0;
+  background-color: #fff;
   color: #000;
   font-family: inherit;
-  font-weight: 600;
 }
-.button-container button:hover {
-  background-color: #f0f0f0;
+.button-container .button:hover {
+  background-color: #e2e2e2;
 }
 
 .release-header {
@@ -232,4 +315,127 @@ table.content-table #sticky-column {
 }
 .release-card .items .bug::before {
   content: "🐞 ";
+}
+
+#pagination-container #pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+#pagination-container #page-button {
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 36px;
+  min-height: 36px;
+  color: #000;
+  font-family: inherit;
+  font-weight: 600;
+}
+#pagination-container #page-button:hover {
+  background-color: #f0f0f0;
+}
+#pagination-container #page-number {
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  padding: 8px;
+  min-width: 36px;
+  min-height: 36px;
+  cursor: pointer;
+  font-size: 14px;
+}
+#pagination-container #page-number:hover {
+  background-color: #f0f0f0;
+}
+#pagination-container #page-number-current {
+  background-color: #006fc4;
+  border: 1px solid #eaeaea;
+  color: #fff;
+  padding: 8px;
+  min-width: 36px;
+  min-height: 36px;
+  cursor: not-allowed;
+  font-size: 14px;
+}
+
+.error_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100dvw;
+  height: 70dvh;
+}
+.error_container .error_header {
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.error_container .error_header .error_code {
+  font-size: 64px;
+  font-family: inherit;
+  letter-spacing: 2px;
+}
+.error_container .error_header p {
+  font-family: inherit;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.error_container .error_content {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.error_container .error_content p {
+  font-family: inherit;
+  font-size: 16px;
+  margin: 8px;
+}
+.error_container .error_content .button_container {
+  margin: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.error_container .error_content .back_button {
+  margin: 16px;
+  padding: 12px 20px;
+  background-color: inherit;
+  border: 1px solid inherit;
+  border-radius: 4px;
+  box-shadow: 4px 4px 1px 1px inherit;
+}
+.error_container .error_content .back_button:hover {
+  border: 1px solid inherit;
+  background-color: inherit;
+}
+.error_container .error_content .back_button:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 1px 1px inherit;
+}
+.error_container .error_content .report {
+  background-color: inherit;
+  border: 1px solid inherit;
+  box-shadow: 4px 4px 1px 1px inherit;
+}
+.error_container .error_content .report:hover {
+  border: 1px solid inherit;
+  background-color: inherit;
+}
+.error_container .error_content .report:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 1px 1px inherit;
 }/*# sourceMappingURL=main.css.map */

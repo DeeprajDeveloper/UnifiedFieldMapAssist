@@ -23,18 +23,6 @@ class DBDataExtraction(CustomError):
         super().__init__(error_message=message, error_code="DATABASE_EXTRACT_ERROR")
 
 
-class InvalidRequest(CustomError):
-    """Input JSON Request doesn't contain the required parameters"""
-    def __init__(self, message):
-        super().__init__(error_message=message, error_code="INVALID_REQUEST")
-
-
-class InvalidInputValues(CustomError):
-    """Input values doesn't match the standards"""
-    def __init__(self, message):
-        super().__init__(error_message=message, error_code="INVALID_INPUT")
-
-
 class InputIdOutOfRange(CustomError):
     """Verse ID is out of the defined range"""
     def __init__(self, message):
@@ -81,6 +69,24 @@ class InvalidData(CustomError):
     """Provided old value does not match the original value"""
     def __init__(self, message):
         super().__init__(error_message=message, error_code="INVALID_DATA")
+
+
+class InvalidRequest(CustomError):
+    """Input JSON Request doesn't contain the required parameters"""
+    def __init__(self, message):
+        super().__init__(error_message=message, error_code="INVALID_REQUEST")
+
+
+class InvalidInputValues(CustomError):
+    """Input values doesn't match the standards"""
+    def __init__(self, message):
+        super().__init__(error_message=message, error_code="INVALID_INPUT")
+
+
+class InvalidSearchParameter(CustomError):
+    """Input values doesn't match the standards"""
+    def __init__(self, message):
+        super().__init__(error_message=message, error_code="INVALID_SEARCH_PARAM")
 
 
 class DataExists(CustomError):

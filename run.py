@@ -6,6 +6,7 @@ import config
 from app.api.routes import bp_api
 from app.auth.routes import bp_auth
 from app.gui.views import bp_gui
+from flask_sitemap import Sitemap
 
 app = Flask(__name__)
 CORS(app)

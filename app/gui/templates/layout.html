@@ -10,16 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
 </head>
 <body> 
-    <section class="nav-container">
-        <a href="{{ url_for('bp_gui.index') }}" class="title">Unified Field Mapping Assistant</a>
-        <div class="nav-buttons">
-            <div class="admin-button"><b>Current:</b> User Mode</div>
-            <a class="release-button" href="{{ url_for('bp_gui.release') }}">Release Notes</a>
+    <section class="navbar-container">
+        <a href="{{ url_for('bp_gui.index') }}" class="navbar-title">Unified Field Mapping Assistant</a>
+        <div class="navbar-button-container">
+            <div class="role-info"><b>Role:</b> {% block role %}{% endblock %}</div>
+            <a class="button" href="{{ url_for('bp_gui.release') }}">Release Notes</a>
+            <a class="admin" href="{{ url_for('bp_gui.admin') }}">Admin</a>
         </div>
     </section>
     
-    {% block content %}{% endblock %}
-    
+    {% block content %}{% endblock %}    
+
     <script src="{{ url_for('bp_gui.static', filename='javascript/main.js') }}"></script>
+    <script src="{{ url_for('bp_gui.static', filename='javascript/pagination.js') }}"></script>
 </body>
 </html>

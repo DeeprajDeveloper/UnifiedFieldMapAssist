@@ -16,8 +16,24 @@ class QueriesRead:
     DQL_VW_DB_INFO = f"Select tableName, columnName, columnSize, dataTypDesc from vw_dbInformation where id = ?searchValue"
 
 
-class ResponseKeysList:
+class APIKeysList:
     GUI_INFO_KEYS: list = ['screenName', 'sectionName', 'fieldName', 'fieldDescription', 'fieldState', 'fieldType', 'fieldDependencyId']
     API_INFO_KEYS: list = ['entityName', 'domainName', 'subdomainName', 'childDomainNameLvl1', 'childDomainNameLvl2', 'businessFieldName', 'type']
     DB_MAPPING_KEYS: list = ['tableName', 'columnName', 'columnSize', 'dataType']
     API_EXPOSURE_KEYS: list = ['readAPI', 'writeAPI', 'kafka']
+    CONFIG_KEYS: list = ['configParameterName', 'configParameterValue']
+    VALID_CONFIG_SEARCH_KEYS: list = ['rowCountPerPage']
+
+
+class FileSystemInformation:
+    DATA_TEMPLATE_FOLDER = r'app\gui\static\fileSystem\fileTemplate'
+    DATA_TEMPLATE_FILENAME = r'sample.txt'
+    UPLOAD_FOLDER = r'fileSystem/fileUploads'
+    DOWNLOAD_FOLDER = r'fileSystem/fileDownloads'
+
+
+class GuiConfigInformation:
+    CONFIG_KEY_VALUE_MAPPING = {
+        "rowCountPerPage": 20
+    }
+
