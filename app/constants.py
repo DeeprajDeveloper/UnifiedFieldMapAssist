@@ -6,7 +6,9 @@ class Information:
 
 
 class QueriesRead:
+    DQL_TBL_GUI_RECORD_COUNT = f"SELECT count(*) FROM guiInformation WHERE RecordStatus = 1"
     DQL_TBL_GUI_ALL_IDS = f"SELECT id FROM guiInformation WHERE RecordStatus = 1"
+    DQL_TBL_GUI_RANGE_IDS = f"SELECT id FROM guiInformation WHERE RecordStatus = 1 and id between ?startValue and ?endValue"
     DQL_TBL_GUI_INFO = f"SELECT screenName, sectionName, fieldName, fieldDescription, fieldStateId, uiTypId, dependencyId FROM guiInformation where RecordStatus = 1 and id = ?searchValue"
     DQL_TBL_API_INFO = f"SELECT entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, datatypeId FROM apiInformation where RecordStatus = 1 and guiId = ?searchValue"
     DQL_TBL_DB_INFO = f"SELECT tableName, columnName, columnSize, datatypeId FROM databaseInformation where RecordStatus = 1 and apiId = ?searchValue"
@@ -22,7 +24,7 @@ class APIKeysList:
     DB_MAPPING_KEYS: list = ['tableName', 'columnName', 'columnSize', 'dataType']
     API_EXPOSURE_KEYS: list = ['readAPI', 'writeAPI', 'kafka']
     CONFIG_KEYS: list = ['configParameterName', 'configParameterValue']
-    VALID_CONFIG_SEARCH_KEYS: list = ['rowCountPerPage']
+    VALID_CONFIG_SEARCH_KEYS: list = ['rowCountPerPage', 'paginationDisplayButtonsCount']
 
 
 class FileSystemInformation:
@@ -34,6 +36,6 @@ class FileSystemInformation:
 
 class GuiConfigInformation:
     CONFIG_KEY_VALUE_MAPPING = {
-        "rowCountPerPage": 20
+        "rowCountPerPage": 25
     }
 

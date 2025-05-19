@@ -94,3 +94,9 @@ class DataExists(CustomError):
     def __init__(self, message):
         super().__init__(error_message=message, error_code="DATA_EXISTS")
 
+
+class PageNumberOutOfRange(CustomError):
+    """Provided old value does not match the original value"""
+    def __init__(self, message):
+        super().__init__(error_message=message, error_code="PAGE_NUMBER_OUT_OF_RANGE")
+

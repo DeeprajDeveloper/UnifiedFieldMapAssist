@@ -15,8 +15,13 @@ def health():
 
 @bp_api.route('/v1/readAll', methods=['GET'])
 def read_all_fields():
+    pagination_filter = request.args.get('pageNumber')
+    if pagination_filter:
+        response_json = func.return_mapping_information_by_page(page_number=int(pagination_filter))
+    else:
+        response_json = func.return_all_mapping_information()
     cust_log.log_message(level='info', message='Calling endpoint /api/v1/readAll', call_type='API')
-    return func.return_all_mapping_information()
+    return response_json
 
 
 @bp_api.route('/v1/getConfig', methods=['GET'])

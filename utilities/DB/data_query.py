@@ -1,5 +1,6 @@
 import sqlite3 as sql
 import traceback
+from typing import Union
 
 
 def check_data_exists(database: str, sql_script: str) -> bool:
@@ -40,6 +41,39 @@ def fetch_all_rows(database: str, sql_script: str, return_list=True) -> list:
     try:
         sqlite_cursor = sqlite_connection.cursor()
         sqlite_cursor.execute(sql_script)
+        sql_data = sqlite_cursor.fetchall()
+        return sql_data
+    except Exception as err:
+        error_code = f"{type(err).__name__}: {str(err)}"
+        error_stack_trace = traceback.format_exc()
+        print(f"{error_code}\n{error_stack_trace}")
+        raise err
+    finally:
+        sqlite_connection.close()
+
+
+def fetch_all_rows_for_range(database: str, sql_script: str, range_start: Union[int, str], range_end: Union[int, str], return_list=True) -> list:
+    """
+    Returns SQL Statement execution results as a LIST by default.
+    When return_list is set to False, this returns the SQL Statement execution results as a LIST of TUPLES
+
+    :param database: SQLITE database file path
+    :param sql_script: SQL Statement to be executed
+    :param range_start: int / string. Must be a value that will replace the ?startValue in the SQL Script
+    :param range_end: int / string. Must be a value that will replace the ?endValue in the SQL Script
+    :param return_list: Boolean. default TRUE
+    :return: LIST / LIST of TUPLES
+    """
+    sql_data: list
+    sqlite_connection = sql.connect(database=database)
+
+    if return_list:
+        sqlite_connection.row_factory = lambda cursor, row: row[0]
+
+    try:
+        sqlite_cursor = sqlite_connection.cursor()
+        updated_sql_script = sql_script.replace('?startValue', str(range_start)).replace('?endValue', str(range_end))
+        sqlite_cursor.execute(updated_sql_script)
         sql_data = sqlite_cursor.fetchall()
         return sql_data
     except Exception as err:
