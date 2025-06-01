@@ -148,3 +148,4 @@ def dql_fetch_one_row_for_one_input(database: str, sql_script: str, data_input: 
     finally:
         sqlite_connection.close()
 
+

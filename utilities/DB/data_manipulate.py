@@ -41,3 +41,4 @@ def dml_dql_execute_parameterized_script(database: str, sql_script: str, data_in
         print(f"{error_code}\n{error_stack_trace}")
     finally:
         sqlite_connection.close()
+

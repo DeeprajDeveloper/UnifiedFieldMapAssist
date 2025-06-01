@@ -24,6 +24,17 @@ def read_all_fields():
     return response_json
 
 
+@bp_api.route('/v1/loadData', methods=['GET', 'POST'])
+def load_data_from_template():
+    template_name = request.args.get('templateName')
+    if template_name:
+        response_json = []
+    else:
+        response_json = func.return_all_mapping_information()
+    cust_log.log_message(level='info', message='Calling endpoint /api/v1/loadData', call_type='API')
+    return response_json
+
+
 @bp_api.route('/v1/getConfig', methods=['GET'])
 def get_config():
     filter_parameter = request.args.get('searchParameter')

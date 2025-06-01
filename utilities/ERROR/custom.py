@@ -100,3 +100,12 @@ class PageNumberOutOfRange(CustomError):
     def __init__(self, message):
         super().__init__(error_message=message, error_code="PAGE_NUMBER_OUT_OF_RANGE")
 
+
+class PandasGenericError(CustomError):
+    def __init__(self, message):
+        super().__init__(error_message=message, error_code="PANDA_GENERIC_ERROR")
+
+
+class PandasDataframeError(CustomError):
+    def __init__(self, message):
+        super().__init__(error_message=message, error_code="PANDA_DATAFRAME_ERROR")

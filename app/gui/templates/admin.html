@@ -13,7 +13,7 @@
             <button class="button" id="delete-button">Delete Row</button> -->
             <button class="button" id="import-button">Import File</button>
             <button class="button" id="export-button">Export File</button>
-            <a class="button" id="export-button" href="{{ url_for('bp_gui.template_file') }}">Template</a>
+            <a class="button" id="export-button" href="{{ url_for('bp_gui.template_file') }}">Download Template</a>
         </div>
     </div>
     <div class="button-group">
@@ -35,104 +35,5 @@
   {% endif %}
 {% endwith %}
 
-<!-- <section class="content-container">
-    <table class="content-table">
-        <thead>
-            <tr>
-                <th colspan="1" class="no-class" id="sticky-column"></th>
-                <th colspan="1" class="no-class"></th>
-                <th colspan="7" class="api-class">API INFROMATION</th>
-                <th colspan="3" class="flag-class">FLAGS</th>
-                <th colspan="7" class="gui-class">GUI INFORMATION</th>
-                <th colspan="1" class="db-class"></th>
-            </tr>
-            <tr>
-                <th class="no-class" id="sticky-column"></th>
-                <th class="no-class">ID</th>
-
-                <th class="api-class">Entity Name</th>
-                <th class="api-class">Domain Name</th>
-                <th class="api-class">Subdomain Name</th>
-                <th class="api-class">Child Domain Name (Lvl-1)</th>
-                <th class="api-class">Child Domain name (Lvl-2)</th>
-                <th class="api-class">Business Field Name</th>
-                <th class="api-class">Type</th>
-                
-                <th class="flag-class">Read API</th>
-                <th class="flag-class">Write API</th>
-                <th class="flag-class">Kafka Msg</th>
-
-                <th class="gui-class">Screen Name</th>
-                <th class="gui-class">Section Name</th>
-                <th class="gui-class">Label Name</th>
-                <th class="gui-class">Label Description</th>
-                <th class="gui-class">Field State</th>
-                <th class="gui-class">Field Type</th>
-                <th class="gui-class">Dependent on</th>
-
-                <th class="db-class">DATABASE INFORMATION</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for display_item in display_data_extract %}
-            <tr>
-                <td class="no-class" id="sticky-column-admin">
-                    <button class="action"> ➕ </button>
-                    <button class="action"> ➖ </button>
-                    <button class="action"> ✏️ </button>
-                </td>
-                <td class="no-class">{{ display_item['guiFieldIdentifier'] }}</td>
-                
-                <td>{{ display_item['apiInformation']['entityName'] }}</td>
-                <td>{{ display_item['apiInformation']['domainName'] }}</td>
-                <td>{{ display_item['apiInformation']['subdomainName'] }}</td>
-                <td>{{ display_item['apiInformation']['childDomainNameLvl1'] }}</td>
-                <td>{{ display_item['apiInformation']['childDomainNameLvl2'] }}</td>
-                <td>{{ display_item['apiInformation']['businessFieldName'] }}</td>
-                <td>{{ display_item['apiInformation']['type'] }}</td>
-                
-                <td>{{ display_item['apiExposureFlags']['readAPI'] }}</td>
-                <td>{{ display_item['apiExposureFlags']['writeAPI'] }}</td>
-                <td>{{ display_item['apiExposureFlags']['kafka'] }}</td>
-                
-                <td>{{ display_item['guiInformation']['screenName'] }}</td>
-                <td>{{ display_item['guiInformation']['sectionName'] }}</td>
-                <td>{{ display_item['guiInformation']['fieldName'] }}</td>
-                <td>{{ display_item['guiInformation']['fieldDescription'] }}</td>
-                <td>{{ display_item['guiInformation']['fieldState'] }}</td>
-                <td>{{ display_item['guiInformation']['fieldType'] }}</td>
-                <td>{{ display_item['guiInformation']['fieldDependencyId'] }}</td>
-                
-                <td>
-                    <table class="db-table">
-                        <thead>
-                            <th class="db-class"></th>
-                            <th class="db-class">Table Name</th>
-                            <th class="db-class">Column Name</th>
-                            <th class="db-class">Column Size</th>
-                            <th class="db-class">Datatype</th>
-                        </thead>
-                        <tbody>
-                            {% for db_info in display_item['databaseInformation'] %}
-                            <tr>
-                                <td id="db-edit">
-                                    <button class="action"> ➕ </button>
-                                    <button class="action"> ➖ </button>
-                                    <button class="action"> ✏️ </button>
-                                </td>
-                                <td>{{ db_info['tableName'] }}</td>
-                                <td>{{ db_info['columnName'] }}</td>
-                                <td>{{ db_info['columnSize'] }}</td>
-                                <td>{{ db_info['dataType'] }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section> -->
 
 {% endblock %}
