@@ -1,27 +1,25 @@
 import config
-import utilities.OTHER.transformer as transform
-import utilities.DB.data_query as dq
+import utilities as dq
 import app.constants as const
 
 
-def description_to_id(key_name, input_value):
-    sql_query = const.MappingMatrix.DESCRIPTION_TO_CODE_QRY_MAPPING[key_name]
-    data_response = dq.dql_fetch_one_row_for_one_input(database=config.SQLITE_DB, data_input=input_value, sql_script=sql_query)
-    return data_response
-
-
-template_name = rf"{const.FileSystemInformation.DATA_TEMPLATE_FOLDER}\{const.FileSystemInformation.DATA_TEMPLATE_FILENAME}"
-input_dataframe = transform.xl_to_dataframe(input_excel_template_path=template_name, worksheet_name=const.TemplateInformation.WORKSHEET_NAME, excel_table_name=const.TemplateInformation.EXCEL_TABLE_NAME)
-
-api_dataframe = input_dataframe[const.TemplateInformation.XL_COLUMNS_API]
-gui_dataframe = input_dataframe[const.TemplateInformation.XL_COLUMNS_GUI]
-flag_dataframe = input_dataframe[const.TemplateInformation.XL_COLUMNS_FLAGS]
-row_dict = []
-
-for gui_row in input_dataframe.itertuples(index=True):
-    row_dict_item = {col: getattr(gui_row, col) for col in const.TemplateInformation.XL_COLUMNS_ALL}
-    print(row_dict_item)
-
+# def description_to_id(key_name, input_value):
+#     sql_query = const.MappingMatrix.DESCRIPTION_TO_CODE_QRY_MAPPING[key_name]
+#     data_response = dq.dql_fetch_one_row_for_one_input(database=config.SQLITE_DB, data_input=input_value, sql_script=sql_query)
+#     return data_response
+#
+#
+# template_name = rf"{const.FileSystemInformation.DATA_TEMPLATE_FOLDER}\{const.FileSystemInformation.DATA_TEMPLATE_FILENAME}"
+# input_dataframe = transform.xl_to_dataframe(input_excel_template_path=template_name, worksheet_name=const.TemplateInformation.WORKSHEET_NAME, excel_table_name=const.TemplateInformation.EXCEL_TABLE_NAME)
+#
+# api_dataframe = input_dataframe[const.TemplateInformation.XL_COLUMNS_API]
+# gui_dataframe = input_dataframe[const.TemplateInformation.XL_COLUMNS_GUI]
+# flag_dataframe = input_dataframe[const.TemplateInformation.XL_COLUMNS_FLAGS]
+# row_dict = []
+#
+# for gui_row in input_dataframe.itertuples(index=True):
+#     row_dict_item = {col: getattr(gui_row, col) for col in const.TemplateInformation.XL_COLUMNS_ALL}
+#     print(row_dict_item)
 
 
 # for gui_row in gui_dataframe.itertuples(index=True):
@@ -37,5 +35,19 @@ for gui_row in input_dataframe.itertuples(index=True):
 #         sql_script = sql_script.replace(query_data_key, str(data_item))
 #     sql_scripts.append(sql_script)
 # print(sql_scripts)
+
+
+# check_if = dq.CheckIf(database=config.SQLITE_DB)
+# data_read = dq.QueryInformation(database=config.SQLITE_DB)
+# # if_exists = check_if.table_exists(table_name=None)
+# # print(if_exists)
+# # data_extract = data_read.get_n_rows(sql_script=const.QueriesRead.DQL_TBL_GUI_ALL_IDS, return_list=True, row_count=6)
+# data_extract = data_read.get_rows(sql_script=const.QueriesRead.DQL_TBL_GUI_ALL_IDS, return_list=True)
+# print(data_extract[0:1])
+
+list_1 = ['action', 'configParameterKey']
+list_2 = ['configParameterKey', 'action']
+
+print(list_1.sort() == list_2.sort())
 
 

@@ -4,7 +4,7 @@ import os
 BASE_DIRECTORY = os.path.abspath(os.path.dirname(__file__))
 
 # Application Configurations
-APP_NAME = os.getenv("APP_NAME", "MyPortfolio")
+APP_NAME = os.getenv("APP_NAME", "Unified-Field-Mapping-Assistant")
 APP_ENV = os.getenv("APP_ENV", "dev")
 APP_DEBUG_MODE = os.getenv("APP_DEBUG", "False").lower() in ("true", "1")
 APP_PORT = os.getenv("APP_PORT", 1001)
@@ -13,8 +13,7 @@ APP_SECRET_KEY = ''
 APP_LOGFILE = f'{BASE_DIRECTORY}/logs/logfile.log'
 
 # SQLite3 Database
-DB_NAME = os.getenv("SQLITE_DB", "unified_field_mapping_db.db")
-SQLITE_DB = fr"{BASE_DIRECTORY}/database/dev/{DB_NAME}" if APP_ENV == 'dev' else fr"{BASE_DIRECTORY}/database/prod/{DB_NAME}"
+SQLITE_DB = fr"{BASE_DIRECTORY}/database/dev/{os.getenv("DB", "unified_field_mapping_db.db")}" if APP_ENV == 'dev' else fr"{BASE_DIRECTORY}/database/prod/{os.getenv("DB", "unified_field_mapping_db.db")}"
 
 # API Documentation Configuration
 SWAGGER_ENDPOINT = "/api/docs"

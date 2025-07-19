@@ -7,7 +7,7 @@ import config
 logging.basicConfig(format='[%(levelname)s] [%(asctime)s] - %(message)s', level=logging.INFO)
 
 
-def log_message(level, message, call_type):
+def log_message(level, message, call_type, write_log=True):
     """
     Logs a message with the function name dynamically.
     OPTIONS: info/error/debug/warning
@@ -26,5 +26,6 @@ def log_message(level, message, call_type):
     else:
         logging.info(full_message)
 
-    with open(config.APP_LOGFILE, 'a', encoding='utf-8') as logfile_obj:
-        logfile_obj.write(f"[{current_date}][{level}] - {full_message}\n")
+    if write_log:
+        with open(config.APP_LOGFILE, 'a', encoding='utf-8') as logfile_obj:
+            logfile_obj.write(f"[{current_date}][{level}] - {full_message}\n")

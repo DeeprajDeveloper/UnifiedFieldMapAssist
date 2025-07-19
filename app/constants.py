@@ -5,130 +5,114 @@ class Information:
     RELEASE_DATE: str = 'TBC'
 
 
-class QueriesRead:
-    DQL_TBL_GUI_RECORD_COUNT = f"SELECT count(*) FROM guiInformation WHERE RecordStatus = 1"
-    DQL_TBL_GUI_ALL_IDS = f"SELECT id FROM guiInformation WHERE RecordStatus = 1"
-    DQL_TBL_GUI_RANGE_IDS = f"SELECT id FROM guiInformation WHERE RecordStatus = 1 and id between ?startValue and ?endValue"
-    DQL_TBL_GUI_INFO = f"SELECT screenName, sectionName, fieldName, fieldDescription, fieldStateId, uiTypId, dependencyId FROM guiInformation where RecordStatus = 1 and id = ?searchValue"
-    DQL_TBL_API_INFO = f"SELECT entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, datatypeId FROM apiInformation where RecordStatus = 1 and guiId = ?searchValue"
-    DQL_TBL_DB_INFO = f"SELECT tableName, columnName, columnSize, datatypeId FROM databaseInformation where RecordStatus = 1 and apiId = ?searchValue"
-    DQL_TBL_API_EXPOSURE_INFO = f"Select ae.isRead, ae.isWrite, ae.isKafka from apiExposure ae inner join apiInformation ai on ai.id = ae.apiId where ai.RecordStatus = 1 and ai.guiId = ?searchValue"
-    DQL_VW_GUI_INFO = f"SELECT screenName, sectionName, fieldName, fieldDescription, fieldStateDesc, uiTypDesc, dependencyId FROM vw_guiInformation where id = ?searchValue"
-    DQL_VW_API_INFO = f"SELECT entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, dataTypDesc FROM vw_apiInformation where id = ?searchValue"
-    DQL_VW_DB_INFO = f"Select tableName, columnName, columnSize, dataTypDesc from vw_dbInformation where id = ?searchValue"
-    DQL_TBL_DATATYPE = f"SELECT dataTypeId from dataType where dataTypeDesc = '?searchValue'"
-    DQL_TBL_FIELD_STATE = f"SELECT fieldStateId from fieldState where fieldStateDesc = '?searchValue'"
-    DQL_TBL_UI_TYPE = f"SELECT uiTypId from guiFieldType where uiTypDesc = '?searchValue'"
+class QrySQLiteMaster:
+    GET_TABLE_INFO = r"SELECT count(*) FROM sqlite_master WHERE type = 'table' and name = :searchValue"
+    GET_VIEW_INFO = r"SELECT count(*) FROM sqlite_master WHERE type = 'view' and name = :searchValue"
 
 
-class SQLInsert:
-    DML_INSERT_GUI_INFO = (f"INSERT INTO guiInformation (screenName, sectionName, fieldName, fieldDescription, fieldStateId, uiTypId, dependencyId) "
-                           f"VALUES('?screenName', '?sectionName', '?fieldName', '?fieldDescription', ?fieldStateId, ?uiTypeId, ?dependencyId);")
-    DML_INSERT_API_INFO = (f"INSERT INTO apiInformation (guiId, entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, datatypeId) "
-                           f"VALUES(?guiId, '?entityName', '?domainName', '?subDomainName', '?childDomainLvl1', '?childDomainLvl2', '?businessFieldName', ?datatypeId);")
+class QryGetGuiInfo:
+    TABLE_REC_COUNT = r"SELECT count(*) FROM guiInformation WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS = r"SELECT id FROM guiInformation WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS_BTW_RANGE = r"SELECT id FROM guiInformation WHERE RecordStatus = 1 and id between :startValue and :endValue"
+    TABLE_GET_INFO_BY_ID = r"SELECT screenName, sectionName, fieldName, fieldDescription, fieldStateId, uiTypId, dependencyId FROM guiInformation where RecordStatus = 1 and id = :searchValue"
+    VIEW_GET_INFO_BY_ID = r"SELECT screenName, sectionName, fieldName, fieldDescription, fieldStateDesc, uiTypDesc, dependencyId FROM vw_guiInformation where id = :searchValue"
 
 
-class APIKeysList:
-    GUI_INFO_KEYS: list = ['screenName', 'sectionName', 'fieldName', 'fieldDescription', 'fieldState', 'fieldType', 'fieldDependencyId']
-    API_INFO_KEYS: list = ['entityName', 'domainName', 'subdomainName', 'childDomainNameLvl1', 'childDomainNameLvl2', 'businessFieldName', 'type']
-    DB_MAPPING_KEYS: list = ['tableName', 'columnName', 'columnSize', 'dataType']
-    API_EXPOSURE_KEYS: list = ['readAPI', 'writeAPI', 'kafka']
-    CONFIG_KEYS: list = ['configParameterName', 'configParameterValue']
-    VALID_CONFIG_SEARCH_KEYS: list = ['rowCountPerPage', 'paginationDisplayButtonsCount']
+class QryGetApiInfo:
+    TABLE_REC_COUNT = r"SELECT count(*) FROM apiInformation WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS = r"SELECT id FROM apiInformation WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS_BTW_RANGE = r"SELECT id FROM apiInformation WHERE RecordStatus = 1 and id between :startValue and :endValue"
+    TABLE_GET_INFO_BY_GUI_ID = r"SELECT entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, datatypeId FROM apiInformation where RecordStatus = 1 and guiId = :searchValue"
+    TABLE_GET_INFO_BY_API_ID = r"SELECT entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, datatypeId FROM apiInformation where RecordStatus = 1 and id = :searchValue"
+    VIEW_GET_INFO_BY_GUI_ID = r"SELECT entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, dataTypDesc FROM vw_apiInformation where id = :searchValue"
 
 
-class FileSystemInformation:
-    DATA_TEMPLATE_FOLDER = r'app\gui\static\fileSystem\fileTemplate'
-    DATA_TEMPLATE_FILENAME = r'MappingInformationTemplate.xlsx'
-    UPLOAD_FOLDER = r'fileSystem\fileUploads'
-    DOWNLOAD_FOLDER = r'fileSystem\fileDownloads'
+class QryGetDbInfo:
+    TABLE_REC_COUNT = r"SELECT count(*) FROM databaseInformation WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS = r"SELECT id FROM databaseInformation WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS_BTW_RANGE = r"SELECT id FROM databaseInformation WHERE RecordStatus = 1 and id between :startValue and :endValue"
+    TABLE_GET_INFO_BY_API_ID = r"SELECT tableName, columnName, columnSize, datatypeId FROM databaseInformation where RecordStatus = 1 and apiId = :searchValue"
+    VIEW_GET_INFO_BY_GUI_ID = r"Select tableName, columnName, columnSize, dataTypDesc from vw_dbInformation where id = :searchValue"
 
 
-class GuiConfigInformation:
-    CONFIG_KEY_VALUE_MAPPING = {
-        "rowCountPerPage": 25
+class QryGetFlagsInfo:
+    TABLE_REC_COUNT = r"SELECT count(*) FROM apiExposure WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS = r"SELECT id FROM apiExposure WHERE RecordStatus = 1"
+    TABLE_GET_ALL_IDS_BTW_RANGE = r"SELECT id FROM apiExposure WHERE RecordStatus = 1 and id between :startValue and :endValue"
+    TABLE_GET_INFO_BY_API_ID = r"SELECT ae.isRead, ae.isWrite, ae.isKafka from apiExposure WHERE ae.apiId = :searchValue"
+    TABLE_GET_INFO_BY_GUI_ID = r"SELECT ae.isRead, ae.isWrite, ae.isKafka from apiExposure ae INNER JOIN apiInformation ai ON ai.id = ae.apiId WHERE ai.RecordStatus = 1 AND ai.guiId = :searchValue"
+
+
+class QryGetConfiguration:
+    TABLE_REC_COUNT = r"SELECT count(*) FROM configParameters"
+    TABLE_GET_ALL_IDS = r"SELECT paramId FROM configParameters"
+    TABLE_GET_ALL_CATEGORIES = r"SELECT distinct category FROM configParameters"
+    TABLE_GET_ALL_PARAM_KEYS = r"SELECT distinct paramKey FROM configParameters"
+    TABLE_GET_INFO_BY_PARAMID = r"SELECT paramId, paramKey, paramValue FROM configParameters where paramId = :searchValue"
+    TABLE_GET_ALL_INFO = r"SELECT paramId, paramKey, paramValue FROM configParameters"
+    TABLE_GET_INFO_BY_PARAM_KEY = r"SELECT paramId, paramKey, paramValue FROM configParameters where paramKey = :searchValue"
+    TABLE_GET_INFO_BY_CATEGORY = r"SELECT paramKey, paramValue FROM configParameters where category = :searchValue"
+    TABLE_GET_INFO_BY_PARAM_CATEGORY = r"SELECT paramId, paramKey, paramValue FROM configParameters where category = :category AND paramKey = :paramKey"
+    TABLE_GET_PARAM_VALUES_BY_PARAM_CATEGORY = r"SELECT paramValue FROM configParameters where category = :category AND paramKey = :paramKey"
+    TABLE_GET_PARAM_VALUES_BY_PARAMID = r"SELECT paramValue FROM configParameters where paramId = :searchValue"
+    TABLE_GET_UPDATE_PAYLOAD_KEYS = r"SELECT paramValue from configParameters where category='updatePayload' and paramKey = :searchValue"
+
+
+class QryGetLookup:
+    TABLE_DATATYPE = r"SELECT dataTypeId from dataType where dataTypeDesc = :searchValue"
+    TABLE_FIELD_STATE = r"SELECT fieldStateId from fieldState where fieldStateDesc = :searchValue"
+    TABLE_UI_TYPE = r"SELECT uiTypId from guiFieldType where uiTypDesc = :searchValue"
+
+
+class QryGetUpdateQueryMapping:
+    TABLE_QRY_MAPPING_BY_KEY = r"SELECT queryString FROM dataQueryMapping WHERE entityType = :entityType AND keyName = :keyName"
+
+
+class DataInsertStatement:
+    ADD_GUI_MAPPING = (r"INSERT INTO guiInformation (screenName, sectionName, fieldName, fieldDescription, fieldStateId, uiTypId, dependencyId) "
+                       r"VALUES(':screenName', ':sectionName', ':fieldName', ':fieldDescription', :fieldStateId, :uiTypeId, :dependencyId);")
+    ADD_API_MAPPING = (r"INSERT INTO apiInformation (guiId, entityName, domainName, subdomainName, childDomainLvl1, childDomainLvl2, businessFieldName, datatypeId) "
+                       r"VALUES(:guiId, ':entityName', ':domainName', ':subDomainName', ':childDomainLvl1', ':childDomainLvl2', ':businessFieldName', :datatypeId);")
+
+
+class DataUpdateStatement:
+    UPDATE_CONFIG_BY_PARAMID = r"UPDATE configParameters SET paramValue = :updateValue WHERE paramId = :paramId"
+
+
+class QryMappingMatrix:
+    """
+    Result Format: List[Tuple]. Tuple Format: (sqlKeyName, apiPathKey)
+    """
+    API_GET_SQL_API_KEYS_BY_XL_COLUMN = r"SELECT sqlKeyName, apiPathKey FROM mappingMatrix WHERE mappingType = 'API' AND xlColumnName = :xlColName"
+    GUI_GET_SQL_API_KEYS_BY_XL_COLUMN = r"SELECT sqlKeyName, apiPathKey FROM mappingMatrix WHERE mappingType = 'GUI' AND xlColumnName = :xlColName"
+    FLAG_GET_SQL_API_KEYS_BY_XL_COLUMN = r"SELECT sqlKeyName, apiPathKey FROM mappingMatrix WHERE mappingType = 'FLAG' AND xlColumnName = :xlColName"
+    DB_GET_SQL_API_KEYS_BY_XL_COLUMN = r"SELECT sqlKeyName, apiPathKey FROM mappingMatrix WHERE mappingType = 'DB' AND xlColumnName = :xlColName"
+
+    API_GET_SQL_KEYS_BY_UI_TAG = r"SELECT sqlKeyName FROM mappingMatrix WHERE mappingType = 'API' AND uiTagName = :uiTagName"
+    GUI_GET_SQL_KEYS_BY_UI_TAG = r"SELECT sqlKeyName FROM mappingMatrix WHERE mappingType = 'GUI' AND uiTagName = :uiTagName"
+    FLAG_GET_SQL_KEYS_BY_UI_TAG = r"SELECT sqlKeyName FROM mappingMatrix WHERE mappingType = 'FLAG' AND uiTagName = :uiTagName"
+    DB_GET_SQL_KEYS_BY_UI_TAG = r"SELECT sqlKeyName FROM mappingMatrix WHERE mappingType = 'DB' AND uiTagName = :uiTagName"
+
+    GET_SQL_KEYS_BY_UI_TAG = r"SELECT sqlKeyName FROM mappingMatrix WHERE uiTagName = :uiTagName"
+
+    MATRIX_UI_TAG_SQL_QUERY = {
+        'api': API_GET_SQL_KEYS_BY_UI_TAG,
+        'gui': GUI_GET_SQL_KEYS_BY_UI_TAG,
+        'db': DB_GET_SQL_KEYS_BY_UI_TAG,
+        'flag': FLAG_GET_SQL_KEYS_BY_UI_TAG,
+    }
+    MATRIX_XL_COL_SQL_QUERY = {
+        'api': API_GET_SQL_API_KEYS_BY_XL_COLUMN,
+        'gui': GUI_GET_SQL_API_KEYS_BY_XL_COLUMN,
+        'db': DB_GET_SQL_API_KEYS_BY_XL_COLUMN,
+        'flag': FLAG_GET_SQL_API_KEYS_BY_XL_COLUMN,
     }
 
 
-class TemplateInformation:
-    WORKSHEET_NAME = r"DataEntry"
-    EXCEL_TABLE_NAME = r"DataTable"
-    XL_COLUMNS_API = ['API_EntityName', 'API_DomainName', 'API_SubdomainName', 'API_ChildDomainNameL1', 'API_ChildDomainNameL2', 'API_BusinessFieldName', 'API_Type']
-    XL_COLUMNS_FLAGS = ['Flag_ReadAPI', 'Flag_WriteAPI', 'Flag_KafkaMsg']
-    XL_COLUMNS_GUI = ['GUI_ScreenName', 'GUI_SectionName', 'GUI_LabelName', 'GUI_LabelDescription', 'GUI_FieldState', 'GUI_FieldType', 'GUI_DependencyOn']
-    XL_COLUMNS_ALL = XL_COLUMNS_API + XL_COLUMNS_FLAGS + XL_COLUMNS_GUI
-
-
-class MappingMatrix:
-    DESCRIPTION_TO_CODE_KEYS = ["GUI_FieldState", "GUI_FieldType", "API_Type"]
-    XL_COLUMNS_KEYS_API_MAPPING = {
-        'API_EntityName': {
-            "sqlKey": "?entityName",
-            "apiKey": 'apiInformation.entityName'
-        },
-        'API_DomainName': {
-            "sqlKey": "?domainName",
-            "apiKey": 'apiInformation.domainName'
-        },
-        'API_SubdomainName': {
-            "sqlKey": "?subDomainName",
-            "apiKey": 'apiInformation.subdomainName'
-        },
-        'API_ChildDomainNameL1': {
-            "sqlKey": "?childDomainLvl1",
-            "apiKey": 'apiInformation.childDomainNameLvl1'
-        },
-        'API_ChildDomainNameL2': {
-            "sqlKey": "?childDomainLvl2",
-            "apiKey": 'apiInformation.childDomainNameLvl2'
-        },
-        'API_BusinessFieldName': {
-            "sqlKey": "?businessFieldName",
-            "apiKey": 'apiInformation.businessFieldName'
-        },
-        'API_Type': {
-            "sqlKey": "?datatypeId",
-            "apiKey": 'apiInformation.type'
-        }
-    }
-    XL_COLUMNS_KEYS_GUI_MAPPING = {
-        'GUI_ScreenName': {
-            "sqlKey": "?screenName",
-            "apiKey": 'guiInformation.screenName'
-        },
-        'GUI_SectionName': {
-            "sqlKey": "?sectionName",
-            "apiKey": 'guiInformation.sectionName'
-        },
-        'GUI_LabelName': {
-            "sqlKey": "?fieldName",
-            "apiKey": 'guiInformation.fieldName'
-        },
-        'GUI_LabelDescription': {
-            "sqlKey": "?fieldDescription",
-            "apiKey": 'guiInformation.fieldDescription'
-        },
-        'GUI_FieldState': {
-            "sqlKey": "?fieldStateId",
-            "apiKey": 'guiInformation.fieldState'
-        },
-        'GUI_FieldType': {
-            "sqlKey": "?uiTypeId",
-            "apiKey": 'guiInformation.fieldType'
-        },
-        'GUI_DependencyOn': {
-            "sqlKey": "?dependencyId",
-            "apiKey": 'guiInformation.fieldDependencyId'
-        }
-    }
-    XL_COLUMNS_KEYS_FLAG_MAPPING = {
-        'Flag_ReadAPI': 'apiExposureFlags.readAPI',
-        'Flag_WriteAPI': 'apiExposureFlags.writeAPI',
-        'Flag_KafkaMsg': 'apiExposureFlags.kafkaAPI'
-    }
-    XL_COLUMNS_KEYS_MAPPING_ALL = [XL_COLUMNS_KEYS_API_MAPPING, XL_COLUMNS_KEYS_FLAG_MAPPING, XL_COLUMNS_KEYS_GUI_MAPPING]
-    DESCRIPTION_TO_CODE_QRY_MAPPING = {
-        "GUI_FieldState": QueriesRead.DQL_TBL_FIELD_STATE,
-        "GUI_FieldType": QueriesRead.DQL_TBL_UI_TYPE,
-        "API_Type": QueriesRead.DQL_TBL_DATATYPE
+class MiscInfo:
+    MAPPING_INSERT_PRIORITY = {
+        'gui': 1,
+        'api': 2,
+        'db': 3,
+        'flag': 4
     }

@@ -1,16 +1,19 @@
-import utilities.ERROR.custom as cError
+import utilities.custom_app_error as obj_error
 import openpyxl as pyxl
 import pandas as pd
 
 
 def transform_to_boolean(list_data_input):
-    response_list: list = []
-    if 0 in list_data_input or 1 in list_data_input:
-        for item in list_data_input:
-            response_list.append(True if item == 1 else False)
-    else:
-        raise cError.InvalidData(message='Expecting binary values 0/1')
-    return response_list
+    try:
+        response_list: list = []
+        if 0 in list_data_input or 1 in list_data_input:
+            for item in list_data_input:
+                response_list.append(True if item == 1 else False)
+            return response_list
+        else:
+            raise obj_error.InvalidData(message='Expecting binary values 0/1')
+    except obj_error.ErrorClass as err:
+        raise err
 
 
 def xl_to_dataframe(input_excel_template_path, worksheet_name, excel_table_name):
@@ -30,5 +33,5 @@ def xl_to_dataframe(input_excel_template_path, worksheet_name, excel_table_name)
         pd_dataframe = pd.DataFrame(xl_rows, columns=xl_headers)
         return pd_dataframe
     except Exception as err:
-        raise cError.PandasDataframeError(f'An error has occurred while transforming the Excel data template into a workable Pandas Dataframe. \nPlease see the error message: {str(err)}')
+        raise obj_error.PandasDataframeAppError(f'An error has occurred while transforming the Excel data template into a workable Pandas Dataframe. \nPlease see the error message: {str(err)}')
 
